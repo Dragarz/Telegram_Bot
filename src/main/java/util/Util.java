@@ -1,11 +1,13 @@
+package util;
+
 import java.io.*;
 import java.util.Scanner;
 
-public class TokenReader {
+public class Util {
     private String UserName = null;
     private String Token = null;
 
-    TokenReader(String fileName) {
+    public Util(String fileName) {
         try(Scanner scanner = new Scanner(new FileReader(fileName))){
             UserName = scanner.next();
             Token = scanner.next();
