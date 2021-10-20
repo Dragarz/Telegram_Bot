@@ -4,13 +4,18 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 public class DragarzBot extends TelegramLongPollingBot {
+    private static final String FILENAME = "./Token.txt";
+    TokenReader token = null;
+    DragarzBot(){
+        token = new TokenReader(FILENAME);
+    }
     @Override
     public void onUpdateReceived(Update update) {
         System.out.println(update.getMessage().getText());
         SendMessage message = new SendMessage();
         message.setChatId(update.getMessage().getChatId().toString());
         message.setText("Hello World");
-        
+
         try {
             execute(message);
         } catch (TelegramApiException e) {
@@ -21,14 +26,12 @@ public class DragarzBot extends TelegramLongPollingBot {
 
     @Override
     public String getBotUsername() {
-        TokenReader userName = new TokenReader("./Token.txt");
-        return userName.getUserName();
+        return token.getUserName();
     }
 
     @Override
     public String getBotToken() {
-        TokenReader userName = new TokenReader("./Token.txt");
-        return userName.getToken();
+        return token.getToken();
     }
 }
 
